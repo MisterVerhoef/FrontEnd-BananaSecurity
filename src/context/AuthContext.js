@@ -20,7 +20,7 @@ function AuthContextProvider ({children}){
     }
 
     function logout (e){
-        console.log("de gebruiker is ingelogd");
+        console.log("de gebruiker is uitgelogd");
         setIsAuth(false);
         history.push('/')
     }
