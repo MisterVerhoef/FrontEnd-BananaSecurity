@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
+import TextInputField from "../components/textInputField";
 
 function SignIn() {
     const {login} = useContext(AuthContext);
@@ -19,7 +20,12 @@ function SignIn() {
 
       <form
       onSubmit={handleSubmit}>
-        <p>*invoervelden*</p>
+        <p>
+            <TextInputField
+            textLabel="Gebruikersnaam"/>
+            <TextInputField
+            textLabel="wachtwoord"/>
+        </p>
         <button
         type="submit">Inloggen</button>
       </form>
