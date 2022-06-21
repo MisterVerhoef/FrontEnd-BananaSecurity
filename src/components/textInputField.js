@@ -1,9 +1,9 @@
 import React from "react";
 
-const TextInputField = ({textLabel, textValue, onChange}) => {
+const TextInputField = ({typeValue, textLabel, textValue, onChange}) => {
     return (
         <label htmlFor={textLabel}> {textLabel}:
-            <input type="text"
+            <input type={typeValue}
                    id={textLabel}
                    name={textLabel}
                    value={textValue}

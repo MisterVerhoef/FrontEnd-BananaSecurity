@@ -1,16 +1,29 @@
-import React, {useContext} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+import { Link, useHistory} from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
 import TextInputField from "../components/textInputField";
+import axios from "axios";
 
 function SignIn() {
     const {login} = useContext(AuthContext);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    function handleSubmit (e){
-        e.preventDefault();
-        console.log("handleSubmit aangeroepen");
-        login();
+    const history = useHistory();
 
+    async function handleSubmit(e){
+        e.preventDefault()
+        console.log(email, password + " je bent ingelogd")
+        try{
+            const result = await axios.post('http://localhost:3000/login', {
+                email: email,
+                password: password,
+            })
+            login(result.data.accessToken);
+            console.log(result.data.accessToken);
+        } catch (e) {
+            console.error(e)
+        }
     }
 
   return (
@@ -22,9 +35,15 @@ function SignIn() {
       onSubmit={handleSubmit}>
         <p>
             <TextInputField
-            textLabel="Gebruikersnaam"/>
+                typeValue="email"
+                onChange={(e) => setEmail(e.target.value)}
+                textValue={email}
+                textLabel="E-mailadres"/>
             <TextInputField
-            textLabel="wachtwoord"/>
+                typeValue="password"
+                onChange={(e) => setPassword(e.target.value)}
+                textValue={password}
+                textLabel="Wachtwoord"/>
         </p>
         <button
         type="submit">Inloggen</button>
